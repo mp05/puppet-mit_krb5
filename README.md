@@ -186,7 +186,7 @@ Realm name is specified by resource title
 - v4\_instance\_convert
 - v4\_realm
 - auth\_to\_local\_names
-- auth\_to\_local
+- auth\_to\_local - (arrays allowed)
 - pkinit\_anchors
 
 ## mit\_krb5::logging
