@@ -35,6 +35,23 @@
 #
 # Copyright 2013 Patrick Mooney.
 #
-define mit_krb5::appdefaults() {
-  fail('PLACEHOLDER: Not yet implemented')
+#define mit_krb5::appdefaults() {
+#  fail('PLACEHOLDER: Not yet implemented')
+#}
+define mit_krb5::appdefaults(
+  $application         = {},
+  $app_realm           = '',
+  $app_option          = '',
+) {
+  include mit_krb5
+  ensure_resource('concat::fragment', 'mit_krb5::appdefaults_header', {
+    target  => $mit_krb5::krb5_conf_path,
+    order   => '12appdefaults_header',
+    content => "[appdefaults]\n",
+  })
+  concat::fragment { "mit_krb5::appdefaults::${title}":
+    target  => $mit_krb5::krb5_conf_path,
+    order   => "13realm_${title}",
+    content => template('mit_krb5/appdefaults.erb'),
+  }
 }
