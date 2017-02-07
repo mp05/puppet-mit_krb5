@@ -1,28 +1,27 @@
-#
-# Placeholder
 <% fields = [
     'application',
     'app_realm',
-    'app_option',
+    'app_options',
 ]
-array_fields = []
 output = []
 scope_hash = scope.to_hash
-fields.each do |k|
-  if scope_hash.include?(k)
-    value = scope_hash[k]
-    if array_fields.include? k and value.respond_to?('each')
-      # Allow multiple servers via array
-      value.flatten! if value.respond_to?('flatten')
-      value.each do |v|
-        output.push("#{k} = #{v}")
-      end
-    elsif not value.empty?
-      output.push("#{k} = #{value}")
-    end
+value = scope_hash['app_options']
+if value.respond_to?('each')
+  value.each do |option, opt_value|
+    output.push("#{option} = #{opt_value}")
   end
 end
 -%>
-    <%= @title %> = {
+<% if scope_hash['application'] == true -%>
+  <%= @title %> = {
+<% end -%>
+<% if not scope_hash['app_realm'].empty? -%>
+    <%= @app_realm %> = {
+<% end -%>
         <%= output.join("\n        ") %>
+<% if scope_hash['application'] == true -%>
     }
+<% end -%>
+<% if not scope_hash['app_realm'].empty? -%>
+  }
+<% end -%>

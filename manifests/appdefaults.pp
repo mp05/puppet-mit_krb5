@@ -4,8 +4,7 @@
 #
 # === Parameters
 #
-# [*application*]
-#    Two forms possible either a hash  or a nested hash
+#    Four forms possible
 #  1)
 #    application = {
 #      option1 = value
@@ -20,28 +19,34 @@
 #        option = value
 #     }
 #   }
-# 
+#  3)
+#   realm = {
+#     option = value
+#   }
+#  4)
+#   option = value
+#
+# [*application*]
+#  boolean if true use the 'title' as the application name
+#
 # [*realm*]
-#  option / value pairs in hash
+#  realm name
 #
 # [*option*]
 #  option / value pairs
 #
 # === Authors
 #
-# Patrick Mooney <patrick.f.mooney@gmail.com>
+# Mike Phillips
 #
 # === Copyright
 #
-# Copyright 2013 Patrick Mooney.
+# Copyright 2017 Mike Phillips.
 #
-#define mit_krb5::appdefaults() {
-#  fail('PLACEHOLDER: Not yet implemented')
-#}
 define mit_krb5::appdefaults(
-  $application         = {},
+  $application         = '',
   $app_realm           = '',
-  $app_option          = '',
+  $app_options         = {},
 ) {
   include mit_krb5
   ensure_resource('concat::fragment', 'mit_krb5::appdefaults_header', {

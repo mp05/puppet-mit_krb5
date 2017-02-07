@@ -51,6 +51,10 @@ mit_krb5::realm { 'INSECURE.LOCAL':
 mit_krb5::domain_realm { 'INSECURE.LOCAL':
   domains => ['insecure.local', '.insecure.local']
 }
+mit_krb5::appdefaults { 'pam':
+  app_options => {debug' => false, 'minimum_uid' => '200'}
+}
+
 ```
 
 Yields the following krb5.conf:
@@ -74,6 +78,12 @@ Yields the following krb5.conf:
 [domain_realm]
     insecure.local = INSECURE.LOCAL
     .insecure.local = INSECURE.LOCAL
+
+[appdefaults]
+    pam = {
+      debug = false
+      minimum_uid = 100
+    }
 ```
 
 Code such as this would mimic the example file shipped with CentOS/RHEL:
