@@ -12,6 +12,7 @@
     - [mit\_krb5::logging](#mit_krb5logging)
     - [mit\_krb5::domain\_realm](#mit_krb5domain_realm)
     - [mit\_krb5::dbmodules](#mit_krb5dbmodules)
+    - [mit\_krb5::appdefaults](#mit_krb5appdefaults)
 5. [Limitations](#limitations)
 6. [License](#license)
 7. [Development](#development)
@@ -240,13 +241,21 @@ Per realm:
  - domains - Domains to be mapped into realm - (arrays allowed)
  - realm - Realm to map into - (default: resource title)
 
+## mit\_krb5::appdefaults
+
+Class to configure \[appdefaults\] section
+
+### Parameters from appdefaults section
+
+- application (if true use class title)
+- app\_realm
+- app\_options (hash with option name/value pairs)
 
 # Limitations
 
 Configuration sections other than those listed above are not yet supported.
 This includes:
 
-- appdefaults
 - capaths
 - dbdefaults
 - login
