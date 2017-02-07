@@ -1,2 +1,28 @@
 #
 # Placeholder
+<% fields = [
+    'application',
+    'app_realm',
+    'app_option',
+]
+array_fields = []
+output = []
+scope_hash = scope.to_hash
+fields.each do |k|
+  if scope_hash.include?(k)
+    value = scope_hash[k]
+    if array_fields.include? k and value.respond_to?('each')
+      # Allow multiple servers via array
+      value.flatten! if value.respond_to?('flatten')
+      value.each do |v|
+        output.push("#{k} = #{v}")
+      end
+    elsif not value.empty?
+      output.push("#{k} = #{value}")
+    end
+  end
+end
+-%>
+    <%= @title %> = {
+        <%= output.join("\n        ") %>
+    }
